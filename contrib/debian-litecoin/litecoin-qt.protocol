@@ -1,0 +1,11 @@
+[Protocol]
+exec=returnbit-qt '%u'
+protocol=returnbit
+input=none
+output=none
+helper=true
+listing=
+reading=false
+writing=false
+makedir=false
+deleting=false

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Returnbit
+Comment=Returnbit P2P Cryptocurrency
+Exec=returnbit-qt %u
+Terminal=false
+Type=Application
+Icon=bitcoin128
+MimeType=x-scheme-handler/returnbit;
+Categories=Office;Finance;
+Name[en_US]=returnbit-qt.desktop
