@@ -1802,12 +1802,13 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
                                REJECT_INVALID, "bad-cb-amount");
 
 	// For rbit also add the protocol rule that the first output in the coinbase must go to the RTRUST address and have at least 2.5% of the subsidy (as per integer arithmetic)
-	if (block.vtx[0].vout[0].scriptPubKey != RTRUST_SCRIPT)
-		return state.DoS(100, error("ConnectBlock() : coinbase does not pay to the RTRUST in the first output)"));
-	int64_t RTRUSTAmount = 50 * COIN;
-	if (block.vtx[0].vout[0].nValue < RTRUSTAmount)
-		return state.DoS(100, error("ConnectBlock() : coinbase does not pay enough to the RTRUST (actual=%d vs required=%d)", block.vtx[0].vout[0].nValue, RTRUSTAmount));
-
+	if (pindex->nHeight > 1) {
+		if (block.vtx[0].vout[0].scriptPubKey != RTRUST_SCRIPT)
+			return state.DoS(100, error("ConnectBlock() : coinbase does not pay to the RTRUST in the first output)"));
+		int64_t RTRUSTAmount = 50 * COIN;
+		if (block.vtx[0].vout[0].nValue < RTRUSTAmount)
+			return state.DoS(100, error("ConnectBlock() : coinbase does not pay enough to the RTRUST (actual=%d vs required=%d)", block.vtx[0].vout[0].nValue, RTRUSTAmount));
+	}
     if (!control.Wait())
         return state.DoS(100, false);
     int64_t nTime2 = GetTimeMicros(); nTimeVerify += nTime2 - nTimeStart;
