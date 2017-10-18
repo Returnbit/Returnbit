@@ -865,7 +865,6 @@ bool CheckTransaction(const CTransaction& tx, CValidationState &state)
     CAmount nValueOut = 0;
     BOOST_FOREACH(const CTxOut& txout, tx.vout)
     {
-        LogPrintf("txout Value  %d \n", txout.nValue);
         if (txout.nValue < 0)
             return state.DoS(100, error("CheckTransaction() : txout.nValue negative"),
                              REJECT_INVALID, "bad-txns-vout-negative");
@@ -1798,7 +1797,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     if (block.vtx[0].GetValueOut() > (GetBlockValue(pindex->nHeight, nFees) + nFees))
         return state.DoS(100,
                          error("ConnectBlock() : coinbase pays too much (actual=%d vs limit=%d - Height %d)",
-                               block.vtx[0].GetValueOut(), GetBlockValue(pindex->nHeight, nFees), pindex->nHeight),
+                               block.vtx[0].GetValueOut(), (GetBlockValue(pindex->nHeight, nFees) + nFees), pindex->nHeight),
                                REJECT_INVALID, "bad-cb-amount");
 
 	// For rbit also add the protocol rule that the first output in the coinbase must go to the RTRUST address and have at least 2.5% of the subsidy (as per integer arithmetic)

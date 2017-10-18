@@ -322,13 +322,13 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn)
         nLastBlockTx = nBlockTx;
         nLastBlockSize = nBlockSize;
         LogPrintf("CreateNewBlock(): total size %u\n", nBlockSize);
-	static const CAmount reward = GetBlockValue(nHeight, nFees);
-	static const CAmount RTRUSTAmount = (50 * COIN) + nFees;
+		static const CAmount reward = GetBlockValue(nHeight, nFees);
+		static const CAmount RTRUSTAmount = (50 * COIN);
         txNew.vout[0].nValue = RTRUSTAmount;
-        txNew.vout[1].nValue = reward - RTRUSTAmount;
+        txNew.vout[1].nValue = (reward + nFees) - RTRUSTAmount;
 
         txNew.vin[0].scriptSig = CScript() << nHeight << OP_0;
-	pblock->vtx[0] = txNew;
+		pblock->vtx[0] = txNew;
         pblocktemplate->vTxFees[0] = -nFees;
         // Fill in header
         pblock->hashPrevBlock  = pindexPrev->GetBlockHash();
