@@ -1,4 +1,1 @@
 # List of Returnbit IPv4 nodes sorted by 30 day availability, block height and version.
-
-104.236.63.127:9333
-107.170.12.152:9333
